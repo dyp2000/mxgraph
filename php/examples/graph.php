@@ -6,41 +6,46 @@ include_once("../src/mxServer.php");
 
 /**
  * Function: main
- * 
+ *
  * Creates a graph using the API and converts it into a PNG image.
  */
 function main()
 {
-	// Creates graph with model
-	$model = new mxGraphModel();
-	$graph = new mxGraph($model);
-	$parent = $graph->getDefaultParent();
-	
-	// Adds cells into the model
-	$model->beginUpdate();
-	try
-	{
-	    $v1 = $graph->insertVertex($parent, null, "Hello,", 20, 20, 80, 30);
-	    $v2 = $graph->insertVertex($parent, null, "World!", 200, 150, 80, 30);
-	    $e1 = $graph->insertEdge($parent, null, "e1", $v1, $v2);
-	}
-	catch (Exception $e)
-	{
-		$model->endUpdate();
-		throw($e);
-	}
-	$model->endUpdate();
+    // Creates graph with model
+    $model = new mxGraphModel();
+    $graph = new mxGraph($model);
+    $parent = $graph->getDefaultParent();
 
-	// Sends PNG image to client
-	$image = $graph->createImage(null, "#FFFFFF");
-	
-	// Creates an interlaced image for better loading in the browser
-	//imageInterlace($image, 1);
-	// Marks background color as being transparent
-	//imageColorTransparent($image, imageColorAllocate($image, 255, 255, 255));
+    // Adds cells into the model
+    $model->beginUpdate();
+    try {
+        $v1 = $graph->insertVertex($parent, null, "Hello,", 20, 20, 80, 30);
+        $v2 = $graph->insertVertex($parent, null, "World!", 200, 150, 80, 30);
+        $e1 = $graph->insertEdge($parent, null, "e1", $v1, $v2);
+        // mxUtils::dd(mxUtils::DEBUG, '', $v1, __FILE__, __LINE__);
+    } catch (Exception $e) {
+        $model->endUpdate();
+        throw($e);
+    }
+    $model->endUpdate();
 
-	header("Content-Type: image/png");	
-	echo mxUtils::encodeImage($image);
+    // Sends PNG image to client
+    $image = $graph->createImage(null, "#FFFFFF");
+
+    // mxUtils::dd(mxUtils::DEBUG, 'image = ', $graph, __FILE__, __LINE__);
+    // mxUtils::dd(mxUtils::INFO, "info\n", null, __FILE__, __LINE__, false);
+    // mxUtils::dd(mxUtils::SUCCESS, "success\n", null, __FILE__, __LINE__, false);
+    // mxUtils::dd(mxUtils::WARNING, "warning\n", null, __FILE__, __LINE__, false);
+    // mxUtils::dd(mxUtils::ERROR, "error\n", null, __FILE__, __LINE__, false);
+    // mxUtils::dd(mxUtils::DEBUG, "debug\n", null, __FILE__, __LINE__);
+
+    // Creates an interlaced image for better loading in the browser
+    //imageInterlace($image, 1);
+    // Marks background color as being transparent
+    //imageColorTransparent($image, imageColorAllocate($image, 255, 255, 255));
+
+    header("Content-Type: image/png");
+    echo mxUtils::encodeImage($image);
 }
 
 // Uses a local font so that all examples work on all platforms. This can be

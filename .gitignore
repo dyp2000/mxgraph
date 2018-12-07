@@ -3,3 +3,5 @@ javascript/dist
 .jshintrc
 javascript/examples/**/dist
 .idea/
+mxgraph-3.9.11.sublime-project
+mxgraph-3.9.11.sublime-workspace

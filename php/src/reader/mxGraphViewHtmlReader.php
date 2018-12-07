@@ -12,14 +12,14 @@ class mxGraphViewHtmlReader extends mxGraphViewImageReader
 	 * A display XML to HTML converter. This allows to create an image of a graph
 	 * without having to parse and create the graph model using the XML file
 	 * created for the mxGraphView object in the thin client.
-	 * 
+	 *
 	 * Constructor: mxGraphViewHtmlReader
 	 *
 	 * Constructs a new HTML graph view reader.
 	 */
-	function mxGraphViewHtmlReader()
+	function __construct()
 	{
-		parent::mxGraphViewImageReader();
+		parent::__construct();
 	}
 
 	/**
@@ -40,12 +40,12 @@ class mxGraphViewHtmlReader extends mxGraphViewImageReader
 	static function convert($string, $background = null)
 	{
 		$viewReader = new mxGraphViewHtmlReader();
-		
+
 		$viewReader->read($string);
 		$html = $viewReader->canvas->getHtml();
 		$viewReader->destroy();
-		
-		return $html;	
+
+		return $html;
 	}
 
 	/**
@@ -56,12 +56,12 @@ class mxGraphViewHtmlReader extends mxGraphViewImageReader
 	static function convertFile($filename, $background = null)
 	{
 		$viewReader = new mxGraphViewHtmlReader();
-		
+
 		$viewReader->readFile($filename);
 		$html = $viewReader->canvas->getHtml();
 		$viewReader->destroy();
-		
-		return $html;		
+
+		return $html;
 	}
 
 }
